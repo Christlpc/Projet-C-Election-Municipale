@@ -22,7 +22,7 @@ int main()
     if(x==1)
         printf("\nSuppression de reclamation avec succés");
     else printf("\nechec Suppression");
-    p3=afficher("reclamation.rec",3 );
+    p3=chercher("reclamation.rec",3 );
     if(r3.numrec==-1)
         printf("introuvable");
     return 0;
@@ -91,7 +91,7 @@ int supprimer(char * filename, int numrec)
     return tr;
 
 }
-user afficher(char * filename, int idobs)
+user chercher(char * filename, int idobs)
 {
     reclamation r;
     FILE * f=fopen(filename, "r");
