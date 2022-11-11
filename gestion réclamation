@@ -1,0 +1,101 @@
+#include"reclamation.h"
+#include<stdio.h>
+#include<stdlib.h>
+
+
+int main()
+{//Initialisation
+    reclamation r1= {1,154,"fraude","probleme de vote","la tete de la liste 1 essaie de changer l'avis des electeurs",2,"09:30","liste de Flen"},r2={2,150,"fraude","probleme de vote","la tete de la liste 1 essaie de changer l'avis des electeurs",3,"08:30","liste de Foulen"},r3;
+    
+    int x=ajouter("point.rec", r1);
+    /*
+    if(x==1)
+        printf("\najout de reclamation avec succés");
+    else printf("\nechec ajout");
+        */
+    x=modifier("point.rec",1,r2 );
+
+    if(x==1)
+        printf("\nModification de reclamation avec succés");
+    else printf("\nechec Modification");
+    x=supprimer("point.rec",1 );
+    if(x==1)
+        printf("\nSuppression de reclamation avec succés");
+    else printf("\nechec Suppression");
+    p3=afficher("reclamation.rec",3 );
+    if(r3.numrec==-1)
+        printf("introuvable");
+    return 0;
+}
+
+
+
+
+int ajouter_user(char *filename,reclamation r)
+{
+FILE * f=fopen(filename, "a");
+    if(f!=NULL)
+    {
+        fprintf(f,"%d %d %s %s %s %d %s %s \n",r.numrec,r.idobs,r.type,r.objet,r.description,r.numecole,r.heure,r.listerec );
+        fclose(f);
+        return 1;
+    }
+    else return 0;
+int modifier( char * filename, int numrec, reclamation nouv )
+{
+    int tr=0;
+    reclamation r;
+    FILE * f=fopen(filename, "r");
+    FILE * f2=fopen("nouv.rec", "w");
+    if(f!=NULL && f2!=NULL)
+    {
+    while(fscanf(f,"%d %d %s %s %s %d %s %s \n",r.numrec,r.id,r.type,r.objet,r.description,r.numecole,r.heure,r.listerec)!=EOF)
+        {
+            if(r.numrec== numrec)
+            {
+                fprintf(f2,"%d %d %s %s %s %d %s %s \n",nouv.numrec,nouv.id,nouv.type,nouv.objet,nouv.description,nouv.numecole,nouv.heure,nouv.listerec);
+                tr=1;
+            }
+            else
+                fprintf(f2,"%s %s %d %d %s %d %d %d\n",r.numrec,r.id,r.type,r.objet,r.description,r.numecole,r.heure,r.listerec);
+
+        }
+    }
+    fclose(f);
+    fclose(f2);
+    remove(filename);
+    rename("nouv.rec", filename);
+    return tr;
+
+}
+int supprimer(char * filename, int numrec)
+{
+    int tr=0;
+    reclamation r;
+    FILE * f=fopen(filename, "r");
+    FILE * f2=fopen("nouv.rec", "w");
+    if(f!=NULL && f2!=NULL)
+    {
+        while(fscanf(f,"%s %s %d %d %s %d %d %d\n",&r.numrec,&r.id,&r.type,&r.objet,&r.description,&r.numecole,&r.heure,&r.listerec)!=EOF)
+        {
+            if(r.numrec== numrec)
+                tr=1;
+            else
+                fprintf(f2,"%s %s %d %d %s %d %d %d\n",r.numrec,r.id,r.type,r.objet,r.description,r.numecole,r.heure,r.listerec);
+        }
+    }
+    fclose(f);
+    fclose(f2);
+    remove(filename);
+    rename("nouv.rec", filename);
+    return tr;
+
+}
+user afficher(char * filename, int idobs)
+{
+    reclamation r;
+    FILE * f=fopen(filename, "r");
+    if(f!=NULL)
+ fprintf(f2,"%s %s %d %d %s %d %d %d\n",r.numrec,r.id,r.type,r.objet,r.description,r.numecole,r.heure,r.listerec);
+fclose(f);
+}
