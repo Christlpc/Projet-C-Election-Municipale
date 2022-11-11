@@ -1,0 +1,127 @@
+#include <stdio.h>
+#include <string.h>
+#include"point.h"
+
+int main()
+{
+    int x=ajouter("p.txt",p1);
+    if(x==1)
+        printf("\najout de point avec succés");
+    else printf("\nechec ajout");
+        */
+    x=modifier("point.txt",1,p2 );
+
+    if(x==1)
+        printf("\nModification de point avec succés");
+    else printf("\nechec Modification");
+    x=supprimer("point.txt",1 );
+    if(x==1)
+        printf("\nSuppression de point avec succés");
+    else printf("\nechec Suppression");
+    p3=chercher("point.txt",3 );
+    if(p3.id==-1)
+        printf("introuvable");
+    return 0;
+}
+#include "point.h"
+
+int ajouter(char * filename, point p, Election e )
+{
+    FILE * f=fopen(filename, "a");
+    if(f!=NULL)
+    {
+        fprintf(f,"%d %s %d %d\n",p.id,p.couleur, point nouv,p.nom,p.prenom,p.id,p.date et lieu de naissance,p.genre,p.cin,p.rôle );
+        fclose(f);
+        return 1;
+    }
+    else return 0;
+}
+int modifier( char * filename, int id, point nouv )
+{
+    int tr=0;
+    point p;
+    FILE * f=fopen(filename, "r");
+    FILE * f2=fopen("nouv.txt", "w");
+    if(f!=NULL && f2!=NULL)
+    {
+        while(fscanf(f,"%d %s %d %d\n")!=EOF)
+        {
+            if(p.id== id)
+            {
+                fprintf(f2,"%d %s %d %d\n",nouv.id,nouv.couleur, point nouv,nouv.nom,nouv.prenom,nouv.id,nouv.date et lieu de naissance,nouv.genre,nouv.cin,nouv.rôle );
+                tr=1;
+            }
+            else
+                fprintf(f2,"%d %s %d %d\n"p.nom,p.prenom,p.id,p.date et lieu de naissance,p.genre,p.cin,p.rôle );
+
+        }
+    }
+    fclose(f);
+    fclose(f2);
+    remove(filename);
+    rename("nouv.txt", filename);
+    return tr;
+
+}
+int supprimer(char * filename, int id)
+{
+    int tr=0;
+    point p;
+    FILE * f=fopen(filename, "r");
+    FILE * f2=fopen("nouv.txt", "w");
+    if(f!=NULL && f2!=NULL)
+    {
+        while(fscanf(f,"%d %s %d %d\n"p.nom,p.prenom,p.id,p.date et lieu de naissance,p.genre,p.cin,p.rôle )!=EOF)
+        {
+            if(p.id== id)
+                tr=1;
+            else
+                fprintf(f2,"%d %s %d %d\n"p.nom,p.prenom,p.id,p.date et lieu de naissance,p.genre,p.cin,p.rôle );
+        }
+    }
+    fclose(f);
+    fclose(f2);
+    remove(filename);
+    rename("nouv.txt", filename);
+    return tr;
+}
+point chercher(char * filename, int id)
+{
+    point p;
+    int tr;
+    FILE * f=fopen(filename, "r");
+    if(f!=NULL)
+    {
+        while(tr==0&& fscanf(f,"%d %s %d %d\n",&p.id,p.nom,p.prenom,p.id,p.date et lieu de naissance,p.genre,p.cin,p.rôle )!=EOF)
+        {
+            if(p.id== id)
+                tr=1;
+        }
+    }
+    fclose(f);
+    if(tr==0)
+        p.id=-1;
+    return p;
+
+}
+#ifndef POINT_H_INCLUDED
+#define POINT_H_INCLUDED
+#include <stdio.h>
+typedef struct
+{
+ char nom;
+ char prenom;
+ char id;
+ struct date et lieu de naissance;
+ float genre;
+ float cin;
+ int rôle;
+ 
+} election;
+
+int ajouter(char *, point );
+int modifier( char *, int, point );
+int supprimer(char *, int );
+point chercher(char *, int);
+
+#endif 
